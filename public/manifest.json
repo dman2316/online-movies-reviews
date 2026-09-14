@@ -38,3 +38,18 @@
     }
   ]
 }
+# Clone the repo
+git clone https://github.com/dman2316/online-movies-reviews.git
+cd online-movies-reviews
+
+# Install dependencies
+npm install
+
+# Create .env file
+cp .env.example .env
+
+# Edit .env and add YOUR API key (keep it private!)
+# TMDB_API_KEY=your_key_here
+
+# Run the app
+npm run dev
