@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Online Movies Reviews</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .offline-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      text-align: center;
+    }
+    .offline-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <h1 class="logo">🎬 Online Movies Reviews</h1>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="offline-container">
+      <div class="offline-icon">📡</div>
+      <h1>You're Offline</h1>
+      <p>It looks like you've lost your internet connection. Please check your connection and try again.</p>
+      <p>You can still view cached content if available.</p>
+      <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 1rem;">Retry</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Online Movies Reviews</p>
+  </footer>
+</body>
+</html>
