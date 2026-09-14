@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e50914">
+  <meta name="description" content="A web app that retrieves movies from TMDB API and allows users to watch and write reviews">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23e50914' width='192' height='192'/><text x='50%' y='50%' font-size='100' fill='white' text-anchor='middle' dominant-baseline='central'>🎬</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23e50914' width='100' height='100'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>🎬</text></svg>">
+  <title>Online Movies Reviews</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <h1 class="logo">🎬 Online Movies Reviews</h1>
+      <form class="search-form" action="/search" method="GET">
+        <input type="text" name="q" placeholder="Search movies..." required>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Discover and Review Movies</h2>
+      <p>Find popular movies and share your thoughts with the community</p>
+    </section>
+
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+
+    <section class="movies-grid">
+      <% if (movies && movies.length > 0) { %>
+        <% movies.forEach(movie => { %>
+          <div class="movie-card">
+            <% if (movie.poster_path) { %>
+              <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" alt="<%= movie.title %>">
+            <% } else { %>
+              <div class="no-image">No Image</div>
+            <% } %>
+            <div class="movie-info">
+              <h3><%= movie.title %></h3>
+              <p class="release-date"><%= movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A' %></p>
+              <p class="rating">⭐ <%= movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A' %></p>
+              <a href="/movie/<%= movie.id %>" class="btn btn-primary">View & Review</a>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No movies found</p>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Online Movies Reviews. Powered by TMDB API</p>
+  </footer>
+
+  <script>
+    // Register service worker for PWA support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered successfully:', registration);
+        })
+        .catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+
+    // Prompt to install app
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // You can show an install button here if desired
+    });
+  </script>
+</body>
+</html>

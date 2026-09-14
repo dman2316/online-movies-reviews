@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e50914">
+  <link rel="manifest" href="/manifest.json">
+  <title>Search Results - Online Movies Reviews</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">🎬 Online Movies Reviews</a>
+      <form class="search-form" action="/search" method="GET">
+        <input type="text" name="q" placeholder="Search movies..." value="<%= query %>" required>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="search-header">
+      <h2>Search Results for: "<%= query %>"</h2>
+      <p><%= movies.length %> movie(s) found</p>
+    </section>
+
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+
+    <section class="movies-grid">
+      <% if (movies && movies.length > 0) { %>
+        <% movies.forEach(movie => { %>
+          <div class="movie-card">
+            <% if (movie.poster_path) { %>
+              <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" alt="<%= movie.title %>">
+            <% } else { %>
+              <div class="no-image">No Image</div>
+            <% } %>
+            <div class="movie-info">
+              <h3><%= movie.title %></h3>
+              <p class="release-date"><%= movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A' %></p>
+              <p class="rating">⭐ <%= movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A' %></p>
+              <a href="/movie/<%= movie.id %>" class="btn btn-primary">View & Review</a>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No movies found. Try another search!</p>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Online Movies Reviews. Powered by TMDB API</p>
+  </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .catch(error => console.log('Service Worker registration failed:', error));
+    }
+  </script>
+</body>
+</html>

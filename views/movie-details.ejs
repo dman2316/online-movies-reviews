@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e50914">
+  <link rel="manifest" href="/manifest.json">
+  <title><%= movie.title %> - Online Movies Reviews</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">🎬 Online Movies Reviews</a>
+      <form class="search-form" action="/search" method="GET">
+        <input type="text" name="q" placeholder="Search movies..." required>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <main class="container">
+    <a href="/" class="back-link">← Back to Home</a>
+
+    <div class="movie-details">
+      <div class="movie-poster">
+        <% if (movie.poster_path) { %>
+          <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" alt="<%= movie.title %>">
+        <% } else { %>
+          <div class="no-image">No Image</div>
+        <% } %>
+      </div>
+
+      <div class="movie-content">
+        <h1><%= movie.title %></h1>
+        <p class="meta">
+          <span class="release-date"><%= movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A' %></span>
+          <span class="rating">⭐ <%= movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A' %>/10</span>
+        </p>
+        
+        <h3>Overview</h3>
+        <p class="overview"><%= movie.overview || 'No overview available' %></p>
+
+        <% if (movie.genres && movie.genres.length > 0) { %>
+          <h3>Genres</h3>
+          <p class="genres">
+            <% movie.genres.forEach(genre => { %>
+              <span class="genre-badge"><%= genre.name %></span>
+            <% }); %>
+          </p>
+        <% } %>
+
+        <h3>Movie Info</h3>
+        <ul class="movie-info">
+          <li><strong>Runtime:</strong> <%= movie.runtime %>min</li>
+          <li><strong>Language:</strong> <%= movie.original_language.toUpperCase() %></li>
+          <li><strong>Vote Count:</strong> <%= movie.vote_count %></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+      <h2>Reviews</h2>
+
+      <!-- Add Review Form -->
+      <div class="review-form">
+        <h3>Write a Review</h3>
+        <form action="/movie/<%= movie.id %>/review" method="POST">
+          <div class="form-group">
+            <label for="author">Your Name:</label>
+            <input type="text" id="author" name="author" placeholder="Enter your name (optional)">
+          </div>
+
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+              <option value="">Select a rating</option>
+              <option value="1">1 - Poor</option>
+              <option value="2">2 - Fair</option>
+              <option value="3">3 - Good</option>
+              <option value="4">4 - Very Good</option>
+              <option value="5">5 - Excellent</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="comment">Your Review:</label>
+            <textarea id="comment" name="comment" rows="5" placeholder="Share your thoughts about this movie..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+      </div>
+
+      <!-- Display Reviews -->
+      <div class="reviews-list">
+        <% if (movieReviews && movieReviews.length > 0) { %>
+          <h3><%= movieReviews.length %> Review(s)</h3>
+          <% movieReviews.forEach(review => { %>
+            <div class="review-item">
+              <div class="review-header">
+                <strong><%= review.author %></strong>
+                <span class="review-rating">⭐ <%= review.rating %>/5</span>
+              </div>
+              <p class="review-date"><%= review.date %></p>
+              <p class="review-comment"><%= review.comment %></p>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>No reviews yet. Be the first to review!</p>
+        <% } %>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Online Movies Reviews. Powered by TMDB API</p>
+  </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .catch(error => console.log('Service Worker registration failed:', error));
+    }
+  </script>
+</body>
+</html>
