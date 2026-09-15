@@ -179,6 +179,6 @@ Contributions are welcome! Feel free to:
 
 For issues or questions, please create an issue on the GitHub repository.
 
----
+---. 
 
 Happy reviewing! 🍿🎬
