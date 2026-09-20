@@ -1,0 +1,12 @@
+https://api.themoviedb.org/3/configurationconst options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZDhlMTZlMDgxZGU4MzYxZjcwNGIxOGYxNzNhMWZlNyIsIm5iZiI6MTc4ODkzMzE0Ni44MDksInN1YiI6IjZhYTBmNDFhY2QzMjBmNjgyNTVhZDFhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5AKPUqkUL3BHpFf06j28OnmMnjWs-Z6F3Gaw0l96SR4'
+  }
+};
+
+fetch('https://api.themoviedb.org/3/authentication', options)
+  .then(res => res.json())
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
