@@ -70,6 +70,7 @@ NODE_ENV=development
 
 ```bash
 npm run dev
+run rpn
 ```
 
 ### Production mode
