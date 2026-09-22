@@ -5,7 +5,13 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_API_KEY =API Read Access Token
+
+eyJhbGci0iJIUzI1NiJ9.eyJhdWQi0iI3ZDhlMTZ1MDgxZGU4MzYxZjcwNGIx0GY xNzNhMWZ1NyIsIm5iZiI6MTc4ODkzMzE0Ni44MDksInN1YiI6IjZhYTBmNDFhY2Q zMjBmNjgyNTVhZDFhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjo xfQ.5AKPUqkUL3BHpFf06j280nmMnjWs-Z6F3Gaw0196SR4
+
+API Key
+
+7d8e16e081de8361f704b18f173a1fe7 process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL || 'https://api.themoviedb.org/3';
 
 // Middleware
