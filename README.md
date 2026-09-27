@@ -48,7 +48,7 @@ Create a `.env` file in the root directory and add your TMDB API key:
 cp .env.example .env
 ```
 
-Edit `.env` and add your TMDB API key:
+Edit `.env` and add your TMDB API key:eyJhdWQiOiI3ZDhlMTZlMDgxZGU4MzYxZjcwNGIxOGYxNzNhMWZlNyIsIm5iZiI6MTc4ODkzMzE0Ni44MDksInN1YiI6IjZhYTBmNDFhY2QzMjBmNjgyNTVhZDFhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ
 
 ```
 TMDB_API_KEY=your_tmdb_api_key_here
@@ -56,6 +56,7 @@ TMDB_BASE_URL=https://api.themoviedb.org/3
 PORT=3000
 NODE_ENV=development
 ```
+
 
 ### 4. Get your TMDB API Key
 
